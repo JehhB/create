@@ -1,0 +1,52 @@
+{
+  "name": "@jehhb/create",
+  "version": "1.0.0",
+  "description": "Create files fast using a powerful but readable templating config ",
+  "main": "dist/index.js",
+  "files": [
+    "dist/*",
+    "!dist/*.test.*"
+  ],
+  "bin": {
+    "create": "dist/index.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "swc src -d dist",
+    "prepare": "npm run build",
+    "dev": "concurrently --kill-others \"npm run dev:swc\" \"npm run dev:tsc\"",
+    "dev:swc": "swc src -w --sync -d dist",
+    "dev:tsc": "tsc -w --pretty"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JehhB/create.git"
+  },
+  "keywords": [
+    "create",
+    "template",
+    "toml",
+    "human",
+    "readable"
+  ],
+  "author": "Jerico Wayne Bayod",
+  "license": "GPL-3.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/JehhB/create/issues"
+  },
+  "homepage": "https://github.com/JehhB/create#readme",
+  "devDependencies": {
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.215",
+    "@swc/jest": "^0.2.21",
+    "@types/jest": "^28.1.6",
+    "chokidar": "^3.5.3",
+    "concurrently": "^7.2.2",
+    "jest": "^28.1.3",
+    "typescript": "^4.7.4"
+  }
+}
