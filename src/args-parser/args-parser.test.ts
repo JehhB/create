@@ -13,22 +13,24 @@ describe("expand flags", () => {
 
   it("should expand repeated flags to array of empty string \
 with length equal to number of time flag is repeated", () => {
-    expect("vv").toEqual<Args>({ v: ["", ""] });
+    expect(expandFlags("vv")).toEqual<Args>({ v: ["", ""] });
   });
 
   it("should be case sensitive", () => {
-    expect(expandFlags("vV")).toBe<Args>({ v: [""], V: [""] });
+    expect(expandFlags("vV")).toEqual<Args>({ v: [""], V: [""] });
   });
 });
 
 describe("merging args", () => {
   it("should merge args maintaining order for option value", () => {
-    expect(mergeArgs({ v: ["1"] }, { v: ["2"], h: [""] })).toBe<Args>({
+    expect(mergeArgs({ v: ["1"] }, { v: ["2"], h: [""] })).toEqual<Args>({
       v: ["1", "2"],
       h: [""],
     });
-    expect(mergeArgs({ v: ["2"], h: [""] }, { h: [""], v: ["1"] })).toBe<Args>({
-      v: ["1", "2"],
+    expect(
+      mergeArgs({ v: ["2"], h: [""] }, { h: [""], v: ["1"] })
+    ).toEqual<Args>({
+      v: ["2", "1"],
       h: ["", ""],
     });
   });
@@ -86,6 +88,6 @@ unless terminated with -- or folowed by another option", () => {
   });
 
   it("should parse empty args as empty object", () => {
-    expect(parseArgs([])).toBe({});
+    expect(parseArgs([])).toEqual({});
   });
 });
