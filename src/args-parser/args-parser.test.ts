@@ -21,7 +21,7 @@ with length equal to number of time flag is repeated", () => {
   });
 });
 
-describe("merging args", () => {
+describe("merge args", () => {
   it("should merge args maintaining order for option value", () => {
     expect(mergeArgs({ v: ["1"] }, { v: ["2"], h: [""] })).toEqual<Args>({
       v: ["1", "2"],
@@ -47,7 +47,8 @@ describe("parse args", () => {
         "create",
         "-lc=auto",
         "-c=always",
-        "-c never",
+        "-c",
+        "never",
         "test",
         "--",
         "-m",
@@ -59,16 +60,15 @@ describe("parse args", () => {
       a: ["", ""],
       v: [""],
       c: ["", "auto", "always", "never"],
-      m: [""],
+      m: ["create"],
       l: [""],
-      $arguments: ["create", "test", "-m", "test"],
+      $arguments: ["test", "-m", "test"],
     });
   });
 
   it("should parse args after -- as arguments", () => {
-    expect(parseArgs(["-h", "--", "-h"])).toEqual<Args>({
-      h: [""],
-      $arguments: ["-h"],
+    expect(parseArgs(["--", "-h", "create"])).toEqual<Args>({
+      $arguments: ["-h", "create"],
     });
     expect(parseArgs(["--"])).toEqual<Args>({});
   });
